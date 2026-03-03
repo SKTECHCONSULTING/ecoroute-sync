@@ -1,14 +1,38 @@
-# Welcome to your CDK TypeScript project
+# EcoRoute Sync Infrastructure
 
-This is a blank project for CDK development with TypeScript.
+Infrastructure as Code for the EcoRoute Sync application using AWS CDK.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Components
 
-## Useful commands
+### Cognito Stack
+- **User Pool**: Manages user registration and authentication.
+- **MFA**: Configured to require OTP for enhanced security.
+- **App Client**: Client configuration for web and mobile applications.
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+### Database Stack
+- **RDS PostgreSQL**: Managed relational database.
+- **VPC**: Isolated network environment with public and private subnets.
+- **PostGIS**: Spatial database extender for geographic objects.
+
+### Lambda Stack
+- **API Gateway**: RESTful API interface.
+- **Lambda Functions**: Serverless compute for application logic.
+- **Lambda Layers**: Shared common dependencies (e.g., `pg`, `axios`).
+
+## Deployment
+
+1. Ensure AWS CLI and CDK are configured.
+2. Navigate to the `infra` directory.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Deploy the stacks:
+   ```bash
+   cdk deploy --all
+   ```
+
+## Development
+
+The environment is set to use the default AWS account and region from the local configuration.
+For development, `RemovalPolicy` is set to `DESTROY` on persistent resources.
